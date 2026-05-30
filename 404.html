@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>404 - 空投偏离航线 | PUBG 战绩查询引擎</title>
+    <style>
+        /* ==========================================================================
+           [ 404 页面视觉架构 (404 Viewport Architecture) ]
+           继承主站的暗色主题与硬件级加速渲染规范
+           ========================================================================== */
+        :root {
+            --bg-color:       #0f172a; 
+            --card-bg:        #1e293b; 
+            --text-color:     #f8fafc; 
+            --text-secondary: #94a3b8;
+            --accent-color:   #4f46e5; 
+            --info-color:     #3b82f6;
+            --warning-color:  #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", "Microsoft Yahei", sans-serif; }
+
+        body { 
+            background: var(--bg-color); 
+            color: var(--text-color); 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.1), transparent 25%);
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 40px;
+            animation: floatUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .error-code {
+            font-size: 150px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-color), var(--info-color));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+            letter-spacing: -5px;
+        }
+
+        .error-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .error-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--warning-color);
+            font-weight: 700;
+            font-size: 18px;
+            margin: 0 4px;
+            font-variant-numeric: tabular-nums; /* 让倒计时数字等宽，防止抖动 */
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 36px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--accent-color), var(--info-color));
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(79, 70, 229, 0.5);
+            filter: brightness(1.1);
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* 移动端安全适配 */
+        @media (max-width: 600px) {
+            .error-code { font-size: 100px; }
+            .error-title { font-size: 22px; }
+            .error-desc { font-size: 14px; padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-title">⚠️ 空投补给箱偏离航线</div>
+        <div class="error-desc">
+            你寻找的页面似乎被轰炸区覆盖，或者已经转移阵地。<br>
+            系统将在 <span class="highlight" id="countdown">5</span> 秒后自动引导你撤离至安全区...
+        </div>
+        <a href="/" class="home-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            立即返回基地
+        </a>
+    </div>
+
+    <script>
+        /**
+         * ==========================================================================
+         * [ 状态机 ] 倒计时自动重定向引擎
+         * ==========================================================================
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            let secondsLeft = 5;
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                secondsLeft--;
+                countdownElement.textContent = secondsLeft;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(timer);
+                    // 倒计时结束，跳转到主页。若你的主页不是根目录，请修改此处
+                    window.location.href = '/'; 
+                }
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
