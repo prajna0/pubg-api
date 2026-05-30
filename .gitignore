@@ -1,0 +1,9 @@
+cache/
+config/pubg_keys.php
+config/steam_help.php
+.user.ini
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
