@@ -1,0 +1,10 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(config|cache)/ - [F,L]
+</IfModule>
+
+<FilesMatch "(^\.|pubg_keys\.php$|composer\.(json|lock)$)">
+    Require all denied
+</FilesMatch>
